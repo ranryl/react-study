@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>虚拟dom和真实dom</title>
+    <style>
+        .title {
+            background-color: orange;
+            width: 200px;
+        }
+    </style>
+</head>
+<script type="text/babel">
+    const myID = 'abcX'
+    const myData = 'hellO, reAct'
+    const VDOM = (
+        <>
+            <h2 className="title" id={myID.toLowerCase()}>
+                <span style={{color: 'white', fontSize: '25px'}}>{myData.toUpperCase()}</span>
+            </h2>
+        </>
+    )
+    ReactDOM.render(VDOM, document.getElementById('test'))
+    /*
+     jsx 语法规则
+     1. 定义虚拟DOM时，不能使用引号
+     2. 标签中混入JS表达式时用{}
+     3. 勇士的类名称指定要用className
+     4. 内联样式，要用style={{k:v}}的形式
+     5. 只有一个根标签
+     6. 标签必须闭合
+     7. 标签首字母，小写字母开头，则转为html中同名的元素，如是大写字母开头，则为react中的组件
+    */
+</script>
+<body>
+    <div id="test"></div>
+</body>

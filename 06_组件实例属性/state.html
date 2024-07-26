@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>state</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Weather extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    isHot: true,
+                }
+            }
+            render() {
+                console.log(this);
+                return (
+                    <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热': '凉爽'}</h1>
+                )
+            }
+            changeWeather =() =>{
+                console.log(this);
+                this.state.isHot = !this.state.isHot
+            }
+        }
+        
+        
+        ReactDOM.createRoot(document.getElementById("test")).render(<Weather/>);
+    </script>
+    <div id="test">
+
+    </div>
+</body>
+</html>

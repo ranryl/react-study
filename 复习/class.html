@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class</title>
+</head>
+<body>
+    <script type="text/javascript">
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            speak() {
+                console.log(`I am ${this.name}. ${this.age} years old`)
+            }
+        }
+        class Student extends Person {
+            constructor(name, age, grade) {
+                super(name, age)
+                this.grade = grade
+            }
+            speak() {
+                super.speak();
+                console.log(`我是${this.grade}`);
+            }
+        }
+        const s1 = new Student('tom', 18, "senior");
+        const s2 = new Student('jerry', 19, "senior");
+        s1.speak();
+        s2.speak();
+        console.log(s1);
+        console.log(s2);
+    </script>
+</body>
+</html>
