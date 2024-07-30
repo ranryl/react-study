@@ -15,20 +15,26 @@
                 super(props)
                 this.state = {
                     isHot: true,
+                    wind: '微风',
                 }
+                this.changeWeather = this.changeWeather.bind(this)
             }
+            // render 会调用 1+n次，n是状态更新次数
             render() {
-                console.log(this);
                 return (
-                    <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热': '凉爽'}</h1>
+                    <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热': '凉爽'}, {this.state.wind}</h1>
                 )
             }
-            changeWeather =() =>{
-                console.log(this);
-                this.state.isHot = !this.state.isHot
+            // changeWeather作为onclick的回调，所以不是通过实例调用的，是直接调用
+            // 类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+            // 通过实例调用时，才是Weather对象本身
+            changeWeather() {
+                console.log("changeWeather: ", this);
+                // 合并、不是替换
+                this.setState({isHot: !this.state.isHot})
+                console.log(this.state.isHot)
             }
         }
-        
         
         ReactDOM.createRoot(document.getElementById("test")).render(<Weather/>);
     </script>

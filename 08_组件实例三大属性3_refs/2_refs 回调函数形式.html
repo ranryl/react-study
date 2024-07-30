@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Demo extends React.Component {
+            showData = () => {
+                console.log(this);
+                alert(this.input1.value);
+            }
+            showData2 = () => {
+                console.log(this);
+                alert(this.input2.value)
+            }
+            // 组件内的标签可以定义ref属性来标识自己
+            // 1. 字符串形式的ref
+            // <input ref="input1"/>
+            // 2. 回调函数形式
+            // <input ref={(c)=>{this.input1=c}} />
+            // 3. createRef创建ref容器
+            // myRef = React.createRef()
+            render() {
+                return (
+                    <div>
+                        <input ref={(c)=>{this.input1 = c}} type="text" placeholder="点击按钮提示数据"/>&nbsp;
+                        <button onClick={this.showData}>点我提示左侧数据</button>
+                        <input ref={(c)=>{this.input2 = c}} onBlur={this.showData2} type="text" placeholder="失去焦点提示数据"/>
+
+                    </div>
+                )
+            }
+        }
+        ReactDOM.createRoot(document.getElementById("test")).render(<Demo />)
+    </script>
+    <div id="test"></div>
+</body>
+</html>

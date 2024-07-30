@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Login extends React.Component {
+            // 随着输入，维护状态就是受控组件，推荐受控组件
+            state = {
+                username: '',
+                password: '',
+            }
+            handleSubmit = (event) => {
+                // 阻止跳转
+                event.preventDefault();
+                alert(this.state.username + ", " + this.state.password)
+            }
+            saveUsername = (event) => {
+                console.log(event.target.value);
+                this.setState({username:event.target.value});
+            }
+            savePassword = (event) => {
+                this.setState({password:event.target.value});
+            }
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                    用户名: <input onChange={this.saveUsername} type="text" name="username"/>
+                    密码:  <input onChange={this.savePassword} type="password" name="passowrd"/>
+                    <button>登录</button>
+                    </form>
+                )
+            }
+        }
+        ReactDOM.createRoot(document.getElementById("test")).render(<Login/>)
+    </script>
+    <div id="test">
+
+    </div>
+</body>

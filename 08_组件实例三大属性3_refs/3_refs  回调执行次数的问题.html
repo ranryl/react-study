@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = {isHot: true}
+            showData = () => {
+                alert(this.input1.value)
+            }
+            changeWeather = () => {
+                this.setState({isHot: !this.state.isHot});
+            }
+            saveInput = (c) => {
+                this.input1 = c
+                console.log('@', this.input1)
+            }
+            render() {
+                return (
+                    <div>
+                        <h2>今天天气很{this.state.isHot ? '炎热': '凉爽'}</h2>
+                        {/*<input ref={(c)=>{this.input1 = c;console.log('@', c)}} type="text" placeholder=""/>&nbsp;*/}
+                        <input ref={this.saveInput} type="text"/><br/><br/>
+                        <button onClick={this.showData}>点我提示左侧数据</button>
+                        <button onClick={this.changeWeather}>点我切换天气</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.createRoot(document.getElementById("test")).render(<Demo />)
+    </script>
+    <div id="test"></div>
+</body>
+</html>

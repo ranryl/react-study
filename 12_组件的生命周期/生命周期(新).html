@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('test'))
+        // componentDidMount() ===> 常用
+        //      一般在这个钩子中做一些初始化的工作，如：开启定时器、发送网络请求、订阅消息
+        // componentWillUnmount() ===> 常用
+        //      一般在这个钩子中做一些收尾工作，如：关闭定时器、取消订阅消息
+        class Count extends React.Component {
+            constructor(props) {
+                console.log('Count---contructor')
+                super(props)
+                this.state = {count: 0}
+            }
+            // 组件即将挂载的钩子
+            // UNSAFE_componentWillMount() {
+            //     console.log('Count---UNSAFE_componentWillMount')
+            // }
+            
+            // state的值在任何时候都取决于props的情况下可以使用，使用场景罕见，派生状态会导致代码冗余、难以维护
+            static getDerivedStateFromProps(props, state) {
+                console.log('getDerivedStateFromProps', props, state)
+                return null
+            }
+            // 在最近依次渲染输出（提交到DOM节点）之前调用，使得组件能在发生更改前从DOM中捕获信息（如：滚动位置）
+            // 此生命周期的任何返回值将作为参数传递给componentDidUpdate()
+            // 使用不常见
+            getSnapshotBeforeUpdate() {
+                console.log('getSnapshotBeforeUpdate')
+                return "xxx"
+            }
+            // 组件挂载完的钩子
+            componentDidMount() {
+                console.log('Count---componentDidMount')
+            }
+            // 组件即将卸载的钩子
+            componentWillUnmount() {
+                console.log('Count---componentWillUnmount')
+            }
+            // 组件是否更新的钩子
+            shouldComponentUpdate() {
+                console.log('Count---shouldComponentUpdate')
+                return true
+            }
+            // 组件即将更新的钩子
+            // UNSAFE_componentWillUpdate() {
+            //     console.log('Count---UNSAFE_componentWillUpdate')
+            // }
+            // 组件更新完毕钩子
+            componentDidUpdate(preProps, preState, snapshot) {
+                console.log('Count---componentDidUpdate', preProps, preState, snapshot)
+            }
+            death = () => {
+                root.unmount(document.getElementById('test'));
+            }
+            force = () => {
+                // 强制更新、不需要更新state
+                this.forceUpdate();
+            }
+            
+            add = () => {
+                this.setState({count: this.state.count+1})
+            }
+            render() {
+                console.log("Count---render")
+                return (
+                    <div>
+                        <h2>当前求和为{this.state.count}</h2>
+                        <button onClick={this.add}>点我+1</button>
+                        <button onClick={this.death}>卸载组件</button>
+                        <button onClick={this.force}>强制更新</button>
+                    </div>
+                )
+            }
+        }
+        
+        class A extends React.Component {
+            state = {carName: 'benci'}
+            changeCar = () => {
+                this.setState({carName: 'xxx'})
+            }
+            render() {
+                return (
+                    <div>
+                        <div>A组件</div>
+                        <button onClick={this.changeCar}>换车</button>
+                        <B carName={this.state.carName}/>
+                    </div>
+                )
+            }
+        }
+        class B extends React.Component {
+            // 组件将要接收新的props的钩子
+            // 第一次传的不算，之后传的才算
+            // UNSAFE_componentWillReceiveProps(props) {
+            //     console.log('B---UNSAFE_componentWillReceiveProps', props)
+            // }
+            render() {
+                return (
+                    <div>B组件：收到的车是{this.props.carName}</div>
+                )
+            }
+        }
+        root.render(<Count count={199}/>)
+
+    </script>
+    <div id="test"></div>
+</body>
+</html>

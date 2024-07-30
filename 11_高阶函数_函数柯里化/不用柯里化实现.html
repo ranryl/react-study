@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Login extends React.Component {
+            // 随着输入，维护状态就是受控组件，推荐受控组件
+            state = {
+                username: '',
+                password: '',
+            }
+            handleSubmit = (event) => {
+                // 阻止跳转
+                event.preventDefault();
+                alert(this.state.username + ", " + this.state.password)
+            }
+            // event 是react传递过来的event，react回调哪个函数，就会将event传给该函数
+            saveFormData = (dataType, event) => {
+                // []取对象值，不写就是字符串
+                this.setState({[dataType]: event.target.value});
+            }
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                    { /*箭头函数只有一个参数，省略(), 函数体只有一句话，省略{} */}
+                    用户名: <input onChange={ event => this.saveFormData('username',event)} type="text" name="username"/>
+                    密码:  <input onChange={(event)=>{this.saveFormData('password',event)}} type="password" name="password"/>
+                    <button>登录</button>
+                    </form>
+                )
+            }
+        }
+        ReactDOM.createRoot(document.getElementById("test")).render(<Login/>)
+    </script>
+    <div id="test">
+
+    </div>
+</body>

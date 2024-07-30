@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Props</title>
+</head>
+<body>
+    <script type="text/babel">
+        // 函数式组件只有三大属性中的props，没有state和refs，但hooks可以实现state的功能
+        function Person({name="xxx", sex="男", age=100}) {
+            return (
+                <ul>
+                    <li>姓名：{name}</li>
+                    <li>性别：{sex}</li>
+                    <li>年龄：{age+1}</li>
+                </ul>
+            )
+        }
+        // 可以
+        // Person.propTypes = {
+        //     name: PropTypes.string.isRequired,
+        //     sex: PropTypes.string,
+        //     age: PropTypes.number,
+        //     speak: PropTypes.func,
+        // }
+        // Person.defaultProps = {
+        //     sex: "a",
+        //     age: 18,
+        // }
+    
+        ReactDOM.createRoot(document.getElementById("test")).render(<Person/>);
+        // const p = {name: 'xxx', age: 18, sex: 'girl'}
+        // ReactDOM.createRoot(document.getElementById("test")).render(<Person {...p}/>);
+    </script>
+    <div id="test">
+
+    </div>
+</body>
+</html>

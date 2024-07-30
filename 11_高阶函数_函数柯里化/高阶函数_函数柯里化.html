@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Login extends React.Component {
+            // 随着输入，维护状态就是受控组件，推荐受控组件
+            state = {
+                username: '',
+                password: '',
+            }
+            handleSubmit = (event) => {
+                // 阻止跳转
+                event.preventDefault();
+                alert(this.state.username + ", " + this.state.password)
+            }
+            // 高阶函数：如果一个函数符合下面2个规范中的任何一个，那就是高阶函数
+            // 1. 若A函数，接受的参数是一个函数
+            // 2. 若A函数，调用的返回值依然是一个函数
+            // 常见的高阶函数有：Promise、setTimeout、arr.map()等等
+            // 函数的柯里化：通过函数调用继续返回方式的方式，实现多次接收参数最后统一处理的函数编码形式
+            saveFormData = (dataType) => {
+                console.log(dataType, event.target.value);
+                return (event) => {
+                    // []取对象值，不写就是字符串
+                    this.setState({[dataType]: event.target.value});
+                }
+            }
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                    用户名: <input onChange={this.saveFormData('username')} type="text" name="username"/>
+                    密码:  <input onChange={this.saveFormData('password')} type="password" name="passowrd"/>
+                    <button>登录</button>
+                    </form>
+                )
+            }
+        }
+        ReactDOM.createRoot(document.getElementById("test")).render(<Login/>)
+    </script>
+    <div id="test">
+
+    </div>
+</body>
