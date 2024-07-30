@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/babel">
+        class Time extends React.Component {
+            state = {date: new Date()}
+            componentDidMount() {
+                setInterval(() => {
+                    this.setState({
+                        date: new Date()
+                    })
+                }, 1000)
+            }
+            render() {
+                return (
+                    <>
+                        <h1>hello</h1>
+                        <input type="text"/>
+                        <span>现在是：{this.state.date.toTimeString()}<input type="text"></input></span>
+                    </>
+                )
+            }
+        }
+        ReactDOM.createRoot(document.getElementById('test')).render(<Time/>)
+    </script>
+    <div id="test"></div>
+</body>
+</html>
