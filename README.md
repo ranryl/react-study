@@ -3,3 +3,5 @@
 2. 创建项目：create-react-app react-base
 3. cd react-base
 4. 启动项目：npm/yarn start
+# typescript
+安装：npm i -g typescript

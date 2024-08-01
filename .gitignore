@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+/react-base/node_modules
+/ts/part3/node_modules
 
 # testing
 /coverage
